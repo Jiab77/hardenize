@@ -396,16 +396,20 @@ if [[ $(which kernelstub | wc -l) -eq 1 ]]; then
 	echo -e "${NL}${WHITE}Checking ${PURPLE}CPU${WHITE} values...${NC}${NL}"
 	echo -e "${WHITE}Checking ${BLUE}'mitigations'${WHITE}...${NC}"
 	if [[ $(kernelstub -p 2>&1 | grep -i "kernel boot" | grep -i "spectre_v2=on spec_store_bypass_disable=on tsx=off tsx_async_abort=full,nosmt mds=full,nosmt l1tf=full,force nosmt=force kvm.nx_huge_pages=force" | wc -l) -eq 1 ]]; then
-		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${WHITE} / ${GREEN}Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${NC}"
+		echo -e "${WHITE}Result: ${GREEN}Found${NC}"
 	else
-		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${WHITE} / ${RED}Not Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${NC}"
+		echo -e "${WHITE}Result: ${RED}Not Found${NC}"
 	fi
 
 	echo -e "${WHITE}Checking ${BLUE}'recommended values'${WHITE}...${NC}"
 	if [[ $(kernelstub -p 2>&1 | grep -i "kernel boot" | grep -i "slab_nomerge slub_debug=FZ init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 pti=on vsyscall=none debugfs=off oops=panic module.sig_enforce=1 lockdown=confidentiality mce=0 quiet loglevel=0" | wc -l) -eq 1 ]]; then
-		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${WHITE} / ${GREEN}Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${NC}"
+		echo -e "${WHITE}Result: ${GREEN}Found${NC}"
 	else
-		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${WHITE} / ${RED}Not Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${NC}"
+		echo -e "${WHITE}Result: ${RED}Not Found${NC}"
 	fi
 elif [[ -f /etc/default/grub ]]; then
 	echo -e "${WHITE}Reading values from ${PURPLE}/etc/default/grub${WHITE}...${NC}${NL}"
@@ -497,16 +501,20 @@ elif [[ -f /etc/default/grub ]]; then
 	echo -e "${NL}${WHITE}Checking ${PURPLE}CPU${WHITE} values...${NC}${NL}"
 	echo -e "${WHITE}Checking ${BLUE}'mitigations'${WHITE}...${NC}"
 	if [[ $(cat /etc/default/grub | grep -i "spectre_v2=on spec_store_bypass_disable=on tsx=off tsx_async_abort=full,nosmt mds=full,nosmt l1tf=full,force nosmt=force kvm.nx_huge_pages=force" | wc -l) -eq 1 ]]; then
-		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${WHITE} / ${GREEN}Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${NC}"
+		echo -e "${WHITE}Result: ${GREEN}Found${NC}"
 	else
-		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${WHITE} / ${RED}Not Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${NC}"
+		echo -e "${WHITE}Result: ${RED}Not Found${NC}"
 	fi
 
 	echo -e "${WHITE}Checking ${BLUE}'recommended values'${WHITE}...${NC}"
 	if [[ $(cat /etc/default/grub | grep -i "slab_nomerge slub_debug=FZ init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 pti=on vsyscall=none debugfs=off oops=panic module.sig_enforce=1 lockdown=confidentiality mce=0 quiet loglevel=0" | wc -l) -eq 1 ]]; then
-		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${WHITE} / ${GREEN}Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${NC}"
+		echo -e "${WHITE}Result: ${GREEN}Found${NC}"
 	else
-		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${WHITE} / ${RED}Not Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${NC}"
+		echo -e "${WHITE}Result: ${RED}Not Found${NC}"
 	fi
 elif [[ -f /boot/syslinux/syslinux.cfg ]]; then
 	echo -e "${WHITE}Reading values from ${PURPLE}/boot/syslinux/syslinux.cfg${WHITE}...${NC}${NL}"
@@ -597,16 +605,20 @@ elif [[ -f /boot/syslinux/syslinux.cfg ]]; then
 	echo -e "${NL}${WHITE}Checking ${PURPLE}CPU${WHITE} values...${NC}${NL}"
 	echo -e "${WHITE}Checking ${BLUE}'mitigations'${WHITE}...${NC}"
 	if [[ $(cat /boot/syslinux/syslinux.cfg | grep -i "spectre_v2=on spec_store_bypass_disable=on tsx=off tsx_async_abort=full,nosmt mds=full,nosmt l1tf=full,force nosmt=force kvm.nx_huge_pages=force" | wc -l) -eq 1 ]]; then
-		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${WHITE} / ${GREEN}Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${NC}"
+		echo -e "${WHITE}Result: ${GREEN}Found${NC}"
 	else
-		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${WHITE} / ${RED}Not Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}spectre_v2,spec_store_bypass_disable,tsx,tsx_async_abort,mds,l1tf,nosmt,kvm.nx_huge_pages${NC}"
+		echo -e "${WHITE}Result: ${RED}Not Found${NC}"
 	fi
 
 	echo -e "${WHITE}Checking ${BLUE}'recommended values'${WHITE}...${NC}"
 	if [[ $(cat /boot/syslinux/syslinux.cfg | grep -i "slab_nomerge slub_debug=FZ init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 pti=on vsyscall=none debugfs=off oops=panic module.sig_enforce=1 lockdown=confidentiality mce=0 quiet loglevel=0" | wc -l) -eq 1 ]]; then
-		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${WHITE} / ${GREEN}Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${NC}"
+		echo -e "${WHITE}Result: ${GREEN}Found${NC}"
 	else
-		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${WHITE} / ${RED}Not Found${NC}"
+		echo -e "${WHITE}Expected: ${GREEN}slab_nomerge,slub_debug,init_on_alloc,init_on_free,page_alloc.shuffle,pti,vsyscall,debugfs,oops,module.sig_enforce,lockdown,mce,quiet,loglevel${NC}"
+		echo -e "${WHITE}Result: ${RED}Not Found${NC}"
 	fi
 fi
 
