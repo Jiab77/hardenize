@@ -1,19 +1,24 @@
 #!/bin/bash
-
+#
+# Hardenize - Compare kernel settings with recommended ones
+#
+# Version 0.1.1
+#
+#
 # MIT License
-
-# Copyright (c) 2021 Jonathan Barda
-
+#
+# Copyright (c) 2021 Jiab77
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,6 +26,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+# Options
+[[ -r $HOME/.debug ]] && set -o xtrace || set +o xtrace
 
 # Colors
 NC="\033[0m"
@@ -31,6 +39,25 @@ GREEN="\033[1;32m"
 RED="\033[1;31m"
 WHITE="\033[1;37m"
 PURPLE="\033[1;35m"
+
+# Functions
+function die() {
+  echo -e "\nError: $*\n" >&2
+  exit 255
+}
+function print_usage() {
+  echo -e "\nUsage: $(basename "$0") -- Compare kernel settings with recommanded ones"
+  echo -e "\nFlags:"
+  echo -e "  -h | --help\tPrint this message and exit"
+  echo
+  exit
+}
+
+# Flags
+[[ $1 == "-h" || $1 == "--help" ]] && print_usage
+
+# Init
+[[ $(id -u) -ne 0 ]] && die "You must run this script as root or with 'sudo'."
 
 # Check
 echo -e "${NL}${WHITE}Checking ${PURPLE}Kernel${WHITE} values...${NC}${NL}"
@@ -306,7 +333,7 @@ else
 fi
 
 echo -e "${NL}${WHITE}Checking ${PURPLE}Boot${WHITE} values...${NC}"
-if [[ $(which kernelstub | wc -l) -eq 1 ]]; then
+if [[ $(command -v kernelstub 2>/dev/null | wc -l) -eq 1 ]]; then
 	echo -e "${WHITE}Reading values from ${PURPLE}$(which kernelstub)${WHITE}...${NC}${NL}"
 	echo -e "${WHITE}Checking ${BLUE}'slab'${WHITE}...${NC}"
 	if [[ $(kernelstub -p 2>&1 | grep -i "kernel boot" | grep -i "slab_nomerge" | wc -l) -eq 1 ]]; then
